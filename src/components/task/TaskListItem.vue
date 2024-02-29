@@ -22,7 +22,7 @@ const markTaskCompleted = () => store.toggleTaskCompletion(props.taskIdx, props.
   <v-text-field
     rounded
     :color="color"
-    variant="outlined"
+    variant="underlined"
     :base-color="color"
     @click:append-inner="markTaskCompleted"
     v-model="store.selectedDay[props.type][props.taskIdx].text"

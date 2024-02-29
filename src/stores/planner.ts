@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { defineStore, acceptHMRUpdate } from "pinia";
 
-import { newEmptyDay } from "./types/planner";
-import type { Day, Task, Meals, DateString, PlannerState, DayTaskField, DayTextField } from "./types/planner";
+import { newEmptyDay, newEmptyTask } from "./types/planner";
+import type { Day, Mood, DateString, PlannerState, DayTaskField } from "./types/planner";
 
 const usePlannerStore = defineStore("planner", {
   state: (): PlannerState => ({
@@ -22,9 +22,13 @@ const usePlannerStore = defineStore("planner", {
     setSelectedDate(date: DateString) {
       this.selectedDate = date;
     },
-    addTask(task: Task, type: DayTaskField) {
+    setMood(mood: Mood) {
       this.ensureDayExists(this.selectedDate);
-      this.days[this.selectedDate]![type].push(task);
+      this.days[this.selectedDate]!.mood = mood;
+    },
+    addTask(type: DayTaskField) {
+      this.ensureDayExists(this.selectedDate);
+      this.days[this.selectedDate]![type].push(newEmptyTask());
     },
     removeTask(index: number, type: DayTaskField) {
       this.ensureDayExists(this.selectedDate);
@@ -32,18 +36,6 @@ const usePlannerStore = defineStore("planner", {
     },
     toggleTaskCompletion(index: number, type: DayTaskField) {
       this.days[this.selectedDate]![type][index].completed = !this.days[this.selectedDate]![type][index].completed;
-    },
-    setMeal(meal: keyof Meals, text: string) {
-      this.ensureDayExists(this.selectedDate);
-      this.days[this.selectedDate]!.meals[meal] = text;
-    },
-    setWaterIntake(amount: number) {
-      this.ensureDayExists(this.selectedDate);
-      this.days[this.selectedDate]!.waterIntake = amount;
-    },
-    setText(text: string, type: DayTextField) {
-      this.ensureDayExists(this.selectedDate);
-      this.days[this.selectedDate]![type] = text;
     },
   },
   getters: {
@@ -55,7 +47,11 @@ const usePlannerStore = defineStore("planner", {
       return this.days[this.selectedDate]!;
     },
   },
-  persist: true,
+  persist: false,
 });
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(usePlannerStore, import.meta.hot));
+}
 
 export default usePlannerStore;
