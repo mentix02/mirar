@@ -43,6 +43,7 @@ const usePlannerStore = defineStore("planner", {
       const day = this.days[this.selectedDate];
       // This may look weird since we're mutating the state inside a getter but
       // trust me, bro, I know what I'm doing. Go fuck off.
+      // Side note - we also can't use this.ensureDayExists. Why? RTFM.
       if (!day) this.days[this.selectedDate] = newEmptyDay(this.selectedDate);
       return this.days[this.selectedDate]!;
     },
