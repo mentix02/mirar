@@ -33,7 +33,7 @@ const exportData = () => {
     <v-card-text>
       <v-row justify="center">
         <v-col cols="12" md="6">
-          <v-text-field v-model="preferencesStore.name" label="your name" />
+          <v-text-field v-model.trim="preferencesStore.name" label="your name" />
         </v-col>
         <v-col cols="12" md="4">
           <v-btn rounded block append-icon="mdi-delete" color="red" @click="plannerStore.reset">Reset</v-btn>
