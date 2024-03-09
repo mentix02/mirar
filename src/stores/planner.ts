@@ -48,7 +48,7 @@ const usePlannerStore = defineStore("planner", {
       return this.days[this.selectedDate]!;
     },
   },
-  persist: false,
+  persist: true,
 });
 
 if (import.meta.hot) {
