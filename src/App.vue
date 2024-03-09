@@ -6,20 +6,36 @@ export default defineComponent({ name: "mirar" });
 
 <script lang="ts" setup>
 import dayjs from "dayjs";
-import { ref, watch } from "vue";
+import { useTheme } from "vuetify";
+import { ref, watch, onMounted } from "vue";
 
 import Meals from "@/components/Meals.vue";
 import Heading from "@/components/Heading.vue";
 import usePlannerStore from "@/stores/planner";
 import Moods from "@/components/mood/Moods.vue";
 import TaskList from "@/components/task/TaskList.vue";
+import usePreferencesStore from "@/stores/preferences";
 import WaterIntake from "@/components/WaterIntake.vue";
 
+const theme = useTheme();
 const store = usePlannerStore();
+const preferencesStore = usePreferencesStore();
 
 const selectedDate = ref(dayjs());
 
 watch(selectedDate, (newDate) => store.setSelectedDate(newDate.format("YYYY-MM-DD")));
+
+watch(
+  () => preferencesStore.theme,
+  (newTheme) => {
+    theme.global.name.value = newTheme;
+  },
+);
+
+onMounted(() => {
+  // Set the theme based on the preferences.
+  theme.global.name.value = preferencesStore.theme;
+});
 </script>
 
 <template>
@@ -32,7 +48,13 @@ watch(selectedDate, (newDate) => store.setSelectedDate(newDate.format("YYYY-MM-D
       </v-row>
       <v-row>
         <v-col cols="12" md="4">
-          <v-date-picker show-adjacent-months v-model="selectedDate" title="calendar" color="pink" width="100%" />
+          <v-date-picker
+            width="100%"
+            color="primary"
+            title="calendar"
+            v-model="selectedDate"
+            :show-adjacent-months="preferencesStore.showAdjacentMonths"
+          />
         </v-col>
         <v-col cols="12" md="5">
           <h2>To-Do List</h2>

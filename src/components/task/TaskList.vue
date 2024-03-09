@@ -19,5 +19,5 @@ const props = defineProps<TaskListProps>();
       <TaskListItem :key="`todo-${index}`" :type="props.type" :task-idx="index" />
     </template>
   </v-virtual-scroll>
-  <v-btn class="py-5" rounded block color="pink" @click="store.addTask(props.type)">Add Task</v-btn>
+  <v-btn class="py-5" rounded block color="primary" @click="store.addTask(props.type)">Add Task</v-btn>
 </template>

@@ -1,11 +1,11 @@
 import "vuetify/styles";
+import { createVuetify } from "vuetify";
 import DayJsAdapter from "@date-io/dayjs";
 import "@mdi/font/css/materialdesignicons.css";
 
-import { createVuetify } from "vuetify";
+import themes from "@/plugins/themes";
 
 export default createVuetify({
-  date: {
-    adapter: new DayJsAdapter(),
-  },
+  theme: { themes: themes },
+  date: { adapter: new DayJsAdapter() },
 });

@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import themes from "@/plugins/themes";
 import usePlannerStore from "@/stores/planner";
 import usePreferencesStore from "@/stores/preferences";
 
 const emit = defineEmits<{ (e: "close"): void }>();
 
 const plannerStore = usePlannerStore();
+const themeNames = Object.keys(themes);
 const preferencesStore = usePreferencesStore();
 
 const exportData = () => {
@@ -34,6 +36,8 @@ const exportData = () => {
       <v-row justify="center">
         <v-col cols="12" md="6">
           <v-text-field v-model.trim="preferencesStore.name" label="your name" />
+          <v-select v-model="preferencesStore.theme" label="Theme" :items="themeNames"></v-select>
+          <v-switch v-model="preferencesStore.showAdjacentMonths" label="Show adjacent months" color="primary" />
         </v-col>
         <v-col cols="12" md="4">
           <v-btn rounded block append-icon="mdi-delete" color="red" @click="plannerStore.reset">Reset</v-btn>
@@ -46,7 +50,7 @@ const exportData = () => {
     <v-card-actions>
       <v-spacer></v-spacer>
 
-      <v-btn color="pink" @click="emit('close')"> Save & Exit </v-btn>
+      <v-btn color="success" @click="emit('close')"> Save & Exit </v-btn>
     </v-card-actions>
   </v-card>
 </template>

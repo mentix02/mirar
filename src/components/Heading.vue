@@ -12,7 +12,7 @@ const preferencesStore = usePreferencesStore();
 
     <v-dialog max-width="750">
       <template v-slot:activator="{ props: activatorProps }">
-        <v-btn class="ml-4" :icon="true" v-bind="activatorProps" color="pink" variant="flat">
+        <v-btn class="ml-4" :icon="true" v-bind="activatorProps" color="primary" variant="flat">
           <v-icon>mdi-cog</v-icon>
           <v-tooltip location="bottom" activator="parent">Settings</v-tooltip>
         </v-btn>

@@ -1,16 +1,18 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 
-type Theme = "light";
+import themes from "@/plugins/themes";
 
 type Preferences = {
   name?: string;
-  theme: Theme;
+  theme: keyof typeof themes;
+  showAdjacentMonths: boolean;
 };
 
 const usePreferencesStore = defineStore("preferences", {
   state: (): Preferences => ({
     theme: "light",
     name: undefined,
+    showAdjacentMonths: false,
   }),
   persist: true,
 });

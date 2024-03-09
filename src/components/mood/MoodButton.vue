@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<MoodButtonProps>(), {
     :icon="true"
     variant="elevated"
     @click="store.setMood(props.mood)"
-    :color="store.selectedDay.mood === props.mood ? 'pink' : ''"
+    :color="store.selectedDay.mood === props.mood ? 'primary' : ''"
   >
     <v-icon>{{ props.icon }}</v-icon>
     <v-tooltip activator="parent" :text="props.mood" :location="props.location" />
