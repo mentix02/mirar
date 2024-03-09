@@ -9,6 +9,12 @@ const plannerStore = usePlannerStore();
 const themeNames = Object.keys(themes);
 const preferencesStore = usePreferencesStore();
 
+const reset = () => {
+  plannerStore.$reset();
+  preferencesStore.$reset();
+  localStorage.clear();
+};
+
 const exportData = () => {
   // Serialize the store.
   const data = JSON.stringify(plannerStore, null, 2);
@@ -40,7 +46,7 @@ const exportData = () => {
           <v-switch v-model="preferencesStore.showAdjacentMonths" label="Show adjacent months" color="primary" />
         </v-col>
         <v-col cols="12" md="4">
-          <v-btn rounded block append-icon="mdi-delete" color="red" @click="plannerStore.reset">Reset</v-btn>
+          <v-btn rounded block append-icon="mdi-delete" color="red" @click="reset">Reset</v-btn>
           <v-divider class="my-2" />
           <v-btn rounded block append-icon="mdi-file-export" color="blue" @click="exportData"> Export Data </v-btn>
         </v-col>

@@ -10,10 +10,6 @@ const usePlannerStore = defineStore("planner", {
     selectedDate: dayjs().format("YYYY-MM-DD"),
   }),
   actions: {
-    reset() {
-      this.days = {};
-      this.selectedDate = dayjs().format("YYYY-MM-DD");
-    },
     ensureDayExists(date: DateString) {
       if (!this.days[date]) {
         this.days[date] = newEmptyDay(date);

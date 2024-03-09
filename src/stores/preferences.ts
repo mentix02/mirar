@@ -10,10 +10,15 @@ type Preferences = {
 
 const usePreferencesStore = defineStore("preferences", {
   state: (): Preferences => ({
-    theme: "light",
     name: undefined,
+    theme: "Fuchsia",
     showAdjacentMonths: false,
   }),
+  actions: {
+    reset() {
+      this.$reset();
+    },
+  },
   persist: true,
 });
 
