@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Recap from "@/components/Recap.vue";
 import Preferences from "@/components/Preferences.vue";
 import usePreferencesStore from "@/stores/preferences";
 
@@ -11,8 +12,8 @@ const preferencesStore = usePreferencesStore();
     <span v-else>Mirar - the tiny planner</span>
 
     <v-dialog max-width="750">
-      <template v-slot:activator="{ props: activatorProps }">
-        <v-btn class="ml-4" :icon="true" v-bind="activatorProps" color="primary" variant="flat">
+      <template v-slot:activator="{ props: preferencesDialogProps }">
+        <v-btn class="ml-4" :icon="true" color="primary" variant="flat" v-bind="preferencesDialogProps">
           <v-icon>mdi-cog</v-icon>
           <v-tooltip location="bottom" activator="parent">Settings</v-tooltip>
         </v-btn>
@@ -20,6 +21,19 @@ const preferencesStore = usePreferencesStore();
 
       <template v-slot:default="{ isActive }">
         <Preferences @close="isActive.value = false" />
+      </template>
+    </v-dialog>
+
+    <v-dialog max-width="750">
+      <template v-slot:activator="{ props: statsProps }">
+        <v-btn class="ml-4" :icon="true" color="secondary" variant="flat" v-bind="statsProps">
+          <v-icon>mdi-chart-bar</v-icon>
+          <v-tooltip location="bottom" activator="parent">Recap</v-tooltip>
+        </v-btn>
+      </template>
+
+      <template v-slot:default="{ isActive }">
+        <Recap @close="isActive.value = false" />
       </template>
     </v-dialog>
   </h1>
